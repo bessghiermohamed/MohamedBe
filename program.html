@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>البرنامج السنوي - نادي أريس الطلابي</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['IBM Plex Sans Arabic', 'sans-serif'],
+                },
+                colors: {
+                    primary: '#2D5BA6',
+                    secondary: '#E86252',
+                    success: '#52C27F',
+                    warning: '#F5A623',
+                    error: '#E85252',
+                    background: '#F8FAFB',
+                    surface: '#FFFFFF',
+                    textPrimary: '#1A2332',
+                    textSecondary: '#5F6D7E',
+                    border: '#E4E9F0',
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body class="font-sans bg-background text-textPrimary" style="overflow-x:hidden">
+<nav class="bg-surface sticky top-0 z-50 shadow-sm">
+<div class="max-w-[1200px] mx-auto px-6">
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center justify-between h-16">
+<div class="flex items-center gap-5">
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="index.html">الرئيسية</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="about.html">من نحن</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="goals.html">أهدافنا</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="activities.html">الأنشطة</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="cooperation.html">التعاون</a>
+<a class="text-sm font-semibold text-primary border-b-4 border-primary pb-1" href="program.html">البرنامج السنوي</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="courses.html">الدورات التكوينية</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="rules.html">النظام الداخلي</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="join.html">انضم إلينا</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="contact.html">اتصل بنا</a>
+</div>
+<a class="text-lg font-bold text-primary whitespace-nowrap" href="index.html">نادي أريس الطلابي</a>
+</div>
+<!-- Mobile Header -->
+<div class="md:hidden flex items-center justify-between h-14">
+<a class="text-base font-bold text-primary" href="index.html">نادي أريس الطلابي</a>
+<button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-primary p-2 rounded-lg hover:bg-primary/10 transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-border py-3 px-2 space-y-1">
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="index.html">الرئيسية</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="about.html">من نحن</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="goals.html">أهدافنا</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="activities.html">الأنشطة</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="cooperation.html">التعاون</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold bg-primary/10 text-primary" href="program.html">البرنامج السنوي</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="courses.html">الدورات التكوينية</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="rules.html">النظام الداخلي</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="join.html">انضم إلينا</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="contact.html">اتصل بنا</a>
+</div>
+</div>
+</nav>
+<main>
+<!--- START: Hero Section --->
+<!--- DESCRIPTION: Page hero with title and introduction --->
+<section class="bg-gradient-to-l from-primary to-[#1e3f73] text-surface py-20">
+<div class="max-w-[1200px] mx-auto px-6 text-center">
+<h1 class="text-5xl md:text-6xl font-bold mb-6">
+     البرنامج السنوي
+    </h1>
+<p class="text-2xl leading-relaxed max-w-[700px] mx-auto">
+     خطة شاملة للأنشطة الثقافية والتعليمية من نونبر إلى يونيو
+    </p>
+</div>
+</section>
+<!--- END --->
+<!--- START: Annual Program Timeline --->
+<!--- DESCRIPTION: Month-by-month schedule display with activities --->
+<section class="py-20">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="bg-surface rounded-xl shadow-sm p-8 mb-6">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-48 flex-shrink-0">
+<div class="bg-primary text-surface rounded-lg p-6 text-center">
+<div class="text-5xl font-bold mb-2">
+         نونبر
+        </div>
+<div class="text-lg">
+         2024
+        </div>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-3xl font-semibold text-primary mb-4">
+        الافتتاح الرسمي للنادي
+       </h2>
+<p class="text-lg leading-relaxed text-textSecondary mb-4">
+        حفل افتتاح رسمي للموسم الدراسي الجديد بحضور إدارة المؤسسة والأساتذة والتلاميذ. تقديم أهداف النادي وبرنامجه السنوي وتسجيل الأعضاء الجدد.
+       </p>
+<div class="flex flex-wrap gap-3">
+<span class="bg-background text-primary px-4 py-2 rounded-lg text-base font-semibold">
+         فعالية رسمية
+        </span>
+<span class="bg-background text-primary px-4 py-2 rounded-lg text-base font-semibold">
+         تسجيل الأعضاء
+        </span>
+<span class="bg-background text-primary px-4 py-2 rounded-lg text-base font-semibold">
+         عرض تقديمي
+        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface rounded-xl shadow-sm p-8 mb-6">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-48 flex-shrink-0">
+<div class="bg-secondary text-surface rounded-lg p-6 text-center">
+<div class="text-5xl font-bold mb-2">
+         دجنبر
+        </div>
+<div class="text-lg">
+         2024
+        </div>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-3xl font-semibold text-primary mb-4">
+        دورات تكوينية في القراءة السريعة
+       </h2>
+<p class="text-lg leading-relaxed text-textSecondary mb-4">
+        ورشات تدريبية لتطوير مهارات القراءة السريعة والفهم العميق للنصوص. تقنيات فعالة لزيادة سرعة القراءة مع الحفاظ على الاستيعاب الجيد.
+       </p>
+<div class="flex flex-wrap gap-3">
+<span class="bg-background text-secondary px-4 py-2 rounded-lg text-base font-semibold">
+         ورشات تدريبية
+        </span>
+<span class="bg-background text-secondary px-4 py-2 rounded-lg text-base font-semibold">
+         تطوير المهارات
+        </span>
+<span class="bg-background text-secondary px-4 py-2 rounded-lg text-base font-semibold">
+         قراءة سريعة
+        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface rounded-xl shadow-sm p-8 mb-6">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-48 flex-shrink-0">
+<div class="bg-success text-surface rounded-lg p-6 text-center">
+<div class="text-5xl font-bold mb-2">
+         يناير
+        </div>
+<div class="text-lg">
+         2025
+        </div>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-3xl font-semibold text-primary mb-4">
+        الاحتفال برأس السنة الأمازيغية
+       </h2>
+<p class="text-lg leading-relaxed text-textSecondary mb-4">
+        فعالية ثقافية للاحتفال بالسنة الأمازيغية الجديدة من خلال قراءات شعرية وعروض ثقافية حول التراث الأمازيغي وأهميته في الثقافة المغربية.
+       </p>
+<div class="flex flex-wrap gap-3">
+<span class="bg-background text-success px-4 py-2 rounded-lg text-base font-semibold">
+         فعالية ثقافية
+        </span>
+<span class="bg-background text-success px-4 py-2 rounded-lg text-base font-semibold">
+         احتفال تراثي
+        </span>
+<span class="bg-background text-success px-4 py-2 rounded-lg text-base font-semibold">
+         قراءات شعرية
+        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface rounded-xl shadow-sm p-8 mb-6">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-48 flex-shrink-0">
+<div class="bg-warning text-surface rounded-lg p-6 text-center">
+<div class="text-5xl font-bold mb-2">
+         فبراير
+        </div>
+<div class="text-lg">
+         2025
+        </div>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-3xl font-semibold text-primary mb-4">
+        حملة توعوية ضد العنف المدرسي
+       </h2>
+<p class="text-lg leading-relaxed text-textSecondary mb-4">
+        برنامج توعوي شامل يتضمن محاضرات وأنشطة تفاعلية للحد من العنف المدرسي وتعزيز ثقافة الحوار والاحترام المتبادل بين التلاميذ.
+       </p>
+<div class="flex flex-wrap gap-3">
+<span class="bg-background text-warning px-4 py-2 rounded-lg text-base font-semibold">
+         حملة توعوية
+        </span>
+<span class="bg-background text-warning px-4 py-2 rounded-lg text-base font-semibold">
+         محاضرات
+        </span>
+<span class="bg-background text-warning px-4 py-2 rounded-lg text-base font-semibold">
+         أنشطة تفاعلية
+        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface rounded-xl shadow-sm p-8 mb-6">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-48 flex-shrink-0">
+<div class="bg-primary text-surface rounded-lg p-6 text-center">
+<div class="text-5xl font-bold mb-2">
+         مارس
+        </div>
+<div class="text-lg">
+         2025
+        </div>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-3xl font-semibold text-primary mb-4">
+        ملتقى اللغة العربية
+       </h2>
+<p class="text-lg leading-relaxed text-textSecondary mb-4">
+        ملتقى أدبي يجمع الطلاب المهتمين باللغة العربية للمناقشة والتحليل الأدبي، مع مشاركة أساتذة متخصصين وعروض حول جماليات اللغة العربية.
+       </p>
+<div class="flex flex-wrap gap-3">
+<span class="bg-background text-primary px-4 py-2 rounded-lg text-base font-semibold">
+         ملتقى أدبي
+        </span>
+<span class="bg-background text-primary px-4 py-2 rounded-lg text-base font-semibold">
+         مناقشات
+        </span>
+<span class="bg-background text-primary px-4 py-2 rounded-lg text-base font-semibold">
+         لغة عربية
+        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface rounded-xl shadow-sm p-8 mb-6">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-48 flex-shrink-0">
+<div class="bg-secondary text-surface rounded-lg p-6 text-center">
+<div class="text-5xl font-bold mb-2">
+         أبريل
+        </div>
+<div class="text-lg">
+         2025
+        </div>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-3xl font-semibold text-primary mb-4">
+        مسابقة في الكتابة الإبداعية
+       </h2>
+<p class="text-lg leading-relaxed text-textSecondary mb-4">
+        مسابقة إبداعية في القصة القصيرة والشعر والمقال، تهدف إلى تشجيع المواهب الأدبية الشابة وتطوير مهارات الكتابة الإبداعية لدى التلاميذ.
+       </p>
+<div class="flex flex-wrap gap-3">
+<span class="bg-background text-secondary px-4 py-2 rounded-lg text-base font-semibold">
+         مسابقة
+        </span>
+<span class="bg-background text-secondary px-4 py-2 rounded-lg text-base font-semibold">
+         كتابة إبداعية
+        </span>
+<span class="bg-background text-secondary px-4 py-2 rounded-lg text-base font-semibold">
+         جوائز
+        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface rounded-xl shadow-sm p-8 mb-6">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-48 flex-shrink-0">
+<div class="bg-success text-surface rounded-lg p-6 text-center">
+<div class="text-5xl font-bold mb-2">
+         ماي
+        </div>
+<div class="text-lg">
+         2025
+        </div>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-3xl font-semibold text-primary mb-4">
+        حملة نظافة المؤسسة
+       </h2>
+<p class="text-lg leading-relaxed text-textSecondary mb-4">
+        مبادرة بيئية تطوعية لتنظيف المؤسسة وتجميلها، تهدف إلى غرس قيم المواطنة البيئية والمسؤولية الجماعية تجاه المحيط المدرسي.
+       </p>
+<div class="flex flex-wrap gap-3">
+<span class="bg-background text-success px-4 py-2 rounded-lg text-base font-semibold">
+         حملة بيئية
+        </span>
+<span class="bg-background text-success px-4 py-2 rounded-lg text-base font-semibold">
+         عمل تطوعي
+        </span>
+<span class="bg-background text-success px-4 py-2 rounded-lg text-base font-semibold">
+         مواطنة
+        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface rounded-xl shadow-sm p-8">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-48 flex-shrink-0">
+<div class="bg-warning text-surface rounded-lg p-6 text-center">
+<div class="text-5xl font-bold mb-2">
+         يونيو
+        </div>
+<div class="text-lg">
+         2025
+        </div>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-3xl font-semibold text-primary mb-4">
+        الحفل الختامي وتوزيع الجوائز
+       </h2>
+<p class="text-lg leading-relaxed text-textSecondary mb-4">
+        حفل ختامي لتتويج الموسم الثقافي بتوزيع الجوائز على المتميزين في الأنشطة المختلفة، وعرض حصيلة إنجازات النادي خلال السنة الدراسية.
+       </p>
+<div class="flex flex-wrap gap-3">
+<span class="bg-background text-warning px-4 py-2 rounded-lg text-base font-semibold">
+         حفل ختامي
+        </span>
+<span class="bg-background text-warning px-4 py-2 rounded-lg text-base font-semibold">
+         توزيع جوائز
+        </span>
+<span class="bg-background text-warning px-4 py-2 rounded-lg text-base font-semibold">
+         تكريم
+        </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!--- END --->
+<!--- START: Statistics Section --->
+<!--- DESCRIPTION: Key statistics about the annual program --->
+<section class="bg-surface py-20">
+<div class="max-w-[1200px] mx-auto px-6">
+<h2 class="text-4xl font-semibold text-center text-primary mb-16">
+     إحصائيات البرنامج السنوي
+    </h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="text-center">
+<div class="text-6xl font-bold text-primary mb-3">
+       8
+      </div>
+<div class="text-xl text-textSecondary">
+       فعاليات رئيسية
+      </div>
+</div>
+<div class="text-center">
+<div class="text-6xl font-bold text-secondary mb-3">
+       8
+      </div>
+<div class="text-xl text-textSecondary">
+       أشهر نشاط
+      </div>
+</div>
+<div class="text-center">
+<div class="text-6xl font-bold text-success mb-3">
+       200+
+      </div>
+<div class="text-xl text-textSecondary">
+       تلميذ مشارك
+      </div>
+</div>
+<div class="text-center">
+<div class="text-6xl font-bold text-warning mb-3">
+       15+
+      </div>
+<div class="text-xl text-textSecondary">
+       أستاذ مشرف
+      </div>
+</div>
+</div>
+</div>
+</section>
+<!--- END --->
+</main>
+<footer class="bg-background py-16 border-t border-border">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="grid md:grid-cols-3 gap-12 mb-12">
+<div>
+<h3 class="text-xl font-bold text-primary mb-4">نادي أريس الطلابي</h3>
+<p class="text-base text-textSecondary leading-relaxed">فضاء أكاديمي نشط يجمع بين العلم والثقافة والإبداع — جامعة تيارت ابن خلدون، ملحقة السوقر</p>
+</div>
+<div>
+<h4 class="text-lg font-semibold text-textPrimary mb-4">روابط سريعة</h4>
+<ul class="space-y-2 text-base">
+<li><a class="text-textSecondary hover:text-primary transition-colors" href="program.html">البرنامج السنوي</a></li>
+<li><a class="text-textSecondary hover:text-primary transition-colors" href="courses.html">الدورات التكوينية</a></li>
+<li><a class="text-textSecondary hover:text-primary transition-colors" href="rules.html">النظام الداخلي</a></li>
+<li><a class="text-textSecondary hover:text-primary transition-colors" href="about.html">من نحن</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold text-textPrimary mb-4">تواصل معنا</h4>
+<p class="text-textSecondary mb-2">contact.sougueur@univ-tiaret.dz</p>
+<p class="text-textSecondary">046 42 50 89</p>
+</div>
+</div>
+<div class="border-t border-border pt-8 text-center">
+<p class="text-base text-textSecondary">© 2024 نادي أريس الطلابي — جامعة تيارت ابن خلدون، ملحقة السوقر. جميع الحقوق محفوظة.</p>
+</div>
+</div>
+</footer>
+</body>
+</html>

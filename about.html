@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>من نحن - نادي أريس الطلابي</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['IBM Plex Sans Arabic', 'sans-serif'],
+                },
+                colors: {
+                    primary: '#2D5BA6',
+                    secondary: '#E86252',
+                    success: '#52C27F',
+                    warning: '#F5A623',
+                    error: '#E85252',
+                    background: '#F8FAFB',
+                    surface: '#FFFFFF',
+                    textPrimary: '#1A2332',
+                    textSecondary: '#5F6D7E',
+                    border: '#E4E9F0',
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body class="font-sans bg-background text-textPrimary" style="overflow-x:hidden">
+<!-- Navigation -->
+<nav class="bg-surface sticky top-0 z-50 shadow-sm">
+<div class="max-w-[1200px] mx-auto px-6">
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center justify-between h-16">
+<div class="flex items-center gap-5">
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="index.html">الرئيسية</a>
+<a class="text-sm font-semibold text-primary border-b-4 border-primary pb-1" href="about.html">من نحن</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="goals.html">أهدافنا</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="activities.html">الأنشطة</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="cooperation.html">التعاون</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="program.html">البرنامج السنوي</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="courses.html">الدورات التكوينية</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="rules.html">النظام الداخلي</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="join.html">انضم إلينا</a>
+<a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors" href="contact.html">اتصل بنا</a>
+</div>
+<a class="text-lg font-bold text-primary whitespace-nowrap" href="index.html">نادي أريس الطلابي</a>
+</div>
+<!-- Mobile Header -->
+<div class="md:hidden flex items-center justify-between h-14">
+<a class="text-base font-bold text-primary" href="index.html">نادي أريس الطلابي</a>
+<button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-primary p-2 rounded-lg hover:bg-primary/10 transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-border py-3 px-2 space-y-1">
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="index.html">الرئيسية</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold bg-primary/10 text-primary" href="about.html">من نحن</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="goals.html">أهدافنا</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="activities.html">الأنشطة</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="cooperation.html">التعاون</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="program.html">البرنامج السنوي</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="courses.html">الدورات التكوينية</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="rules.html">النظام الداخلي</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="join.html">انضم إلينا</a>
+<a class="block py-2 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="contact.html">اتصل بنا</a>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="bg-gradient-to-l from-primary to-[#1e3a6b] text-white py-20">
+<div class="max-w-[1200px] mx-auto px-6 text-center">
+<h1 class="text-6xl font-bold mb-6">
+     من نحن
+    </h1>
+<p class="text-2xl max-w-3xl mx-auto leading-relaxed">
+     نادي طلابي غير ربحي يهدف إلى إثراء المشهد الثقافي واللغوي في الجامعة
+    </p>
+</div>
+</section>
+<!-- Mission Section -->
+<section class="py-20 bg-surface">
+<div class="max-w-[900px] mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-5xl font-semibold text-textPrimary mb-6">
+      هويتنا ورسالتنا
+     </h2>
+<div class="w-24 h-1 bg-secondary mx-auto">
+</div>
+</div>
+<div class="bg-background rounded-xl p-8 leading-relaxed">
+<p class="text-xl text-textPrimary mb-6">
+      نادي اللغة العربية هو منظمة طلابية غير ربحية تأسست بهدف خدمة المجتمع الطلابي وتنمية مواهب الطلاب في مجالات اللغة والأدب والثقافة العربية. نؤمن بأن اللغة العربية ليست مجرد وسيلة للتواصل، بل هي وعاء حضاري يحمل تاريخنا وثقافتنا وهويتنا.
+     </p>
+<p class="text-xl text-textPrimary mb-6">
+      نسعى من خلال أنشطتنا المتنوعة إلى خلق بيئة محفزة تشجع الطلاب على الإبداع والابتكار، وتعزز من قدراتهم اللغوية والأدبية. كما نعمل على بناء جسور التواصل بين الطلاب من مختلف التخصصات، ونساهم في إثراء الحياة الجامعية بالفعاليات الثقافية والأدبية الهادفة.
+     </p>
+<p class="text-xl text-textPrimary">
+      رسالتنا الأساسية هي المساهمة في التنمية الثقافية واللغوية داخل الجامعة، وتوفير منصة للطلاب للتعبير عن أنفسهم وتطوير مهاراتهم في بيئة داعمة ومحفزة.
+     </p>
+</div>
+</div>
+</section>
+<!-- Values Section -->
+<section class="py-20 bg-background">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-5xl font-semibold text-textPrimary mb-6">
+      قيمنا الأساسية
+     </h2>
+<div class="w-24 h-1 bg-secondary mx-auto">
+</div>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="bg-surface rounded-xl p-8 shadow-lg">
+<div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6 mx-auto">
+<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+</path>
+</svg>
+</div>
+<h3 class="text-2xl font-semibold text-textPrimary mb-4 text-center">
+       الإبداع والابتكار
+      </h3>
+<p class="text-lg text-textSecondary text-center leading-relaxed">
+       نشجع التفكير الإبداعي ونوفر مساحات للابتكار في مجالات الأدب والفن والثقافة العربية
+      </p>
+</div>
+<div class="bg-surface rounded-xl p-8 shadow-lg">
+<div class="w-12 h-12 bg-success rounded-lg flex items-center justify-center mb-6 mx-auto">
+<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+</path>
+</svg>
+</div>
+<h3 class="text-2xl font-semibold text-textPrimary mb-4 text-center">
+       التعاون والشراكة
+      </h3>
+<p class="text-lg text-textSecondary text-center leading-relaxed">
+       نبني جسور التواصل بين الطلاب ونعزز روح العمل الجماعي والتعاون المثمر
+      </p>
+</div>
+<div class="bg-surface rounded-xl p-8 shadow-lg">
+<div class="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-6 mx-auto">
+<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+</path>
+</svg>
+</div>
+<h3 class="text-2xl font-semibold text-textPrimary mb-4 text-center">
+       التميز والجودة
+      </h3>
+<p class="text-lg text-textSecondary text-center leading-relaxed">
+       نلتزم بتقديم أنشطة وفعاليات عالية الجودة تحقق الأثر الإيجابي والمستدام
+      </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Objectives Section -->
+<section class="py-20 bg-surface">
+<div class="max-w-[1000px] mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-5xl font-semibold text-textPrimary mb-6">
+      أهدافنا
+     </h2>
+<div class="w-24 h-1 bg-secondary mx-auto">
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="flex gap-4 p-6 bg-background rounded-xl">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+<span class="text-white font-bold">
+        1
+       </span>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-textPrimary mb-2">
+        تنمية المهارات اللغوية
+       </h3>
+<p class="text-lg text-textSecondary leading-relaxed">
+        تعزيز قدرات الطلاب في اللغة العربية الفصحى كتابةً ونطقاً وفهماً
+       </p>
+</div>
+</div>
+<div class="flex gap-4 p-6 bg-background rounded-xl">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+<span class="text-white font-bold">
+        2
+       </span>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-textPrimary mb-2">
+        إثراء الثقافة الأدبية
+       </h3>
+<p class="text-lg text-textSecondary leading-relaxed">
+        تعريف الطلاب بالأدب العربي الكلاسيكي والحديث وتشجيعهم على القراءة النقدية
+       </p>
+</div>
+</div>
+<div class="flex gap-4 p-6 bg-background rounded-xl">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+<span class="text-white font-bold">
+        3
+       </span>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-textPrimary mb-2">
+        دعم المواهب الإبداعية
+       </h3>
+<p class="text-lg text-textSecondary leading-relaxed">
+        اكتشاف ورعاية مواهب الطلاب في الكتابة والشعر والخطابة والفنون الأدبية
+       </p>
+</div>
+</div>
+<div class="flex gap-4 p-6 bg-background rounded-xl">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+<span class="text-white font-bold">
+        4
+       </span>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-textPrimary mb-2">
+        تعزيز الهوية الثقافية
+       </h3>
+<p class="text-lg text-textSecondary leading-relaxed">
+        تقوية الانتماء للثقافة العربية والإسلامية والاعتزاز بالتراث اللغوي
+       </p>
+</div>
+</div>
+<div class="flex gap-4 p-6 bg-background rounded-xl">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+<span class="text-white font-bold">
+        5
+       </span>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-textPrimary mb-2">
+        بناء المجتمع الطلابي
+       </h3>
+<p class="text-lg text-textSecondary leading-relaxed">
+        خلق فضاء للتفاعل الإيجابي وتبادل الأفكار بين طلاب الجامعة
+       </p>
+</div>
+</div>
+<div class="flex gap-4 p-6 bg-background rounded-xl">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+<span class="text-white font-bold">
+        6
+       </span>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-textPrimary mb-2">
+        التواصل مع المجتمع
+       </h3>
+<p class="text-lg text-textSecondary leading-relaxed">
+        تنظيم فعاليات ثقافية تخدم المجتمع الجامعي والمحلي بشكل عام
+       </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Structure Section -->
+<section class="py-20 bg-background">
+<div class="max-w-[1000px] mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-5xl font-semibold text-textPrimary mb-6">
+      هيكلنا التنظيمي
+     </h2>
+<div class="w-24 h-1 bg-secondary mx-auto mb-6">
+</div>
+<p class="text-xl text-textSecondary max-w-[700px] mx-auto">
+      نعمل وفق هيكل تنظيمي محكم يضمن الكفاءة والشفافية في تنفيذ جميع أنشطتنا
+     </p>
+</div>
+<div class="bg-surface rounded-xl p-8 shadow-lg">
+<div class="space-y-6">
+<div class="border-r-4 border-primary pr-6">
+<h3 class="text-2xl font-semibold text-textPrimary mb-2">
+        المجلس التنفيذي
+       </h3>
+<p class="text-lg text-textSecondary">
+        يتولى المجلس التنفيذي مسؤولية التخطيط الاستراتيجي واتخاذ القرارات الرئيسية وتوجيه مسار النادي نحو تحقيق أهدافه
+       </p>
+</div>
+<div class="border-r-4 border-success pr-6">
+<h3 class="text-2xl font-semibold text-textPrimary mb-2">
+        لجنة الفعاليات
+       </h3>
+<p class="text-lg text-textSecondary">
+        تختص بتنظيم وتنفيذ جميع الفعاليات والأنشطة الثقافية والأدبية التي ينظمها النادي على مدار العام
+       </p>
+</div>
+<div class="border-r-4 border-secondary pr-6">
+<h3 class="text-2xl font-semibold text-textPrimary mb-2">
+        لجنة الإعلام والتسويق
+       </h3>
+<p class="text-lg text-textSecondary">
+        تعمل على نشر أخبار النادي والترويج لأنشطته عبر وسائل التواصل الاجتماعي والقنوات الإعلامية المختلفة
+       </p>
+</div>
+<div class="border-r-4 border-warning pr-6">
+<h3 class="text-2xl font-semibold text-textPrimary mb-2">
+        لجنة التطوير والإبداع
+       </h3>
+<p class="text-lg text-textSecondary">
+        تركز على تطوير برامج تدريبية وورش عمل لتنمية مهارات الطلاب الإبداعية في الكتابة والأدب والفنون
+       </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Call to Action -->
+<section class="py-20 bg-gradient-to-r from-primary to-[#1e3a6b] text-white">
+<div class="max-w-[800px] mx-auto px-6 text-center">
+<h2 class="text-5xl font-semibold mb-6">
+     انضم إلى عائلتنا
+    </h2>
+<p class="text-xl mb-8 leading-relaxed">
+     كن جزءاً من مجتمع طلابي نابض بالحياة والإبداع، وساهم في إثراء المشهد الثقافي واللغوي في جامعتك
+    </p>
+<a class="inline-block bg-secondary text-surface px-8 py-4 rounded-lg text-xl font-semibold" href="join.html">سجل الآن</a>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background py-16 border-t border-border">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="grid md:grid-cols-3 gap-12 mb-12">
+<div>
+<h3 class="text-xl font-bold text-primary mb-4">نادي أريس الطلابي</h3>
+<p class="text-base text-textSecondary leading-relaxed">فضاء أكاديمي نشط يجمع بين العلم والثقافة والإبداع — جامعة تيارت ابن خلدون، ملحقة السوقر</p>
+</div>
+<div>
+<h4 class="text-lg font-semibold text-textPrimary mb-4">روابط سريعة</h4>
+<ul class="space-y-2 text-base">
+<li><a class="text-textSecondary hover:text-primary transition-colors" href="program.html">البرنامج السنوي</a></li>
+<li><a class="text-textSecondary hover:text-primary transition-colors" href="courses.html">الدورات التكوينية</a></li>
+<li><a class="text-textSecondary hover:text-primary transition-colors" href="rules.html">النظام الداخلي</a></li>
+<li><a class="text-textSecondary hover:text-primary transition-colors" href="about.html">من نحن</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold text-textPrimary mb-4">تواصل معنا</h4>
+<p class="text-textSecondary mb-2">contact.sougueur@univ-tiaret.dz</p>
+<p class="text-textSecondary">046 42 50 89</p>
+</div>
+</div>
+<div class="border-t border-border pt-8 text-center">
+<p class="text-base text-textSecondary">© 2024 نادي أريس الطلابي — جامعة تيارت ابن خلدون، ملحقة السوقر. جميع الحقوق محفوظة.</p>
+</div>
+</div>
+</footer>
+</body>
+</html>
