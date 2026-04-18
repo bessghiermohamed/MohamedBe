@@ -153,17 +153,41 @@
       </label>
 <input class="w-full px-5 py-3.5 rounded-lg border-2 border-border text-lg" name="name" placeholder="أدخل اسمك الكامل" type="text" required/>
 </div>
-<div class="mb-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<div>
 <label class="block text-lg font-semibold mb-3">
-       البريد الإلكتروني
-      </label>
-<input class="w-full px-5 py-3.5 rounded-lg border-2 border-border text-lg" name="email" placeholder="example@univ-tiaret.dz" type="email" required/>
+         السنة الدراسية
+        </label>
+<select name="year" class="w-full px-5 py-3.5 rounded-lg border-2 border-border text-lg">
+<option value="">
+         اختر السنة
+        </option>
+<option value="1">
+         السنة الأولى
+        </option>
+<option value="2">
+         السنة الثانية
+        </option>
+<option value="3">
+         السنة الثالثة
+        </option>
+<option value="master">
+         ماستر
+        </option>
+</select>
 </div>
-<div class="mb-6">
+<div>
 <label class="block text-lg font-semibold mb-3">
-       رقم الهاتف
-      </label>
-<input class="w-full px-5 py-3.5 rounded-lg border-2 border-border text-lg" name="phone" name="phone" placeholder="0X XX XX XX XX" type="tel"/>
+         التخصص
+        </label>
+<input name="speciality" class="w-full px-5 py-3.5 rounded-lg border-2 border-border text-lg" placeholder="مثال: هندسة برمجيات" type="text" required/>
+</div>
+<div>
+<label class="block text-lg font-semibold mb-3">
+         الفوج / المجموعة
+        </label>
+<input name="group" class="w-full px-5 py-3.5 rounded-lg border-2 border-border text-lg" placeholder="مثال: الفوج 3" type="text" required/>
+</div>
 </div>
 <div class="mb-6">
 <label class="block text-lg font-semibold mb-3">
