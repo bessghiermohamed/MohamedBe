@@ -146,7 +146,8 @@
 <p class="text-lg text-textSecondary text-center mb-12">
      نسعد باستقبال استفساراتك واقتراحاتك لتطوير النادي
     </p>
-<form class="bg-surface rounded-xl p-8 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" action="https://formspree.io/f/mojydovy" method="POST">
+<form id="contact-form" class="bg-surface rounded-xl p-8 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+<!-- EmailJS Config: service_w406l5m / template_iyrv7ur -->
 <div class="mb-6">
 <label class="block text-lg font-semibold mb-3">
        الاسم الكامل
@@ -217,9 +218,10 @@
       </label>
 <textarea class="w-full px-5 py-3.5 rounded-lg border-2 border-border text-lg resize-none" name="message" placeholder="اكتب رسالتك هنا..." rows="6" required></textarea>
 </div>
-<button class="w-full bg-primary text-surface font-semibold text-lg py-4 rounded-lg" type="submit">
+<button id="submit-btn" class="w-full bg-primary text-surface font-semibold text-lg py-4 rounded-lg hover:opacity-90 transition-opacity" type="submit">
       إرسال الرسالة
      </button>
+<div id="status-message" class="mt-4 text-center text-lg font-semibold rounded-lg p-4 hidden"></div>
 </form>
 </div>
 </section>
@@ -389,5 +391,40 @@ Mohamed
 </div>
 </div>
 </div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function() {
+    emailjs.init('_9vRVW4z8eZTOm9Dh');
+  })();
+
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('submit-btn');
+    var msg = document.getElementById('status-message');
+
+    btn.disabled = true;
+    btn.textContent = 'جاري الإرسال...';
+    btn.classList.add('opacity-70');
+    msg.classList.add('hidden');
+
+    emailjs.sendForm('service_w406l5m', 'template_iyrv7ur', this)
+      .then(function() {
+        btn.disabled = false;
+        btn.textContent = 'إرسال الرسالة';
+        btn.classList.remove('opacity-70');
+        msg.classList.remove('hidden');
+        msg.className = 'mt-4 text-center text-lg font-semibold rounded-lg p-4 bg-success/10 text-success';
+        msg.textContent = 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.';
+        document.getElementById('contact-form').reset();
+      }, function(error) {
+        btn.disabled = false;
+        btn.textContent = 'إرسال الرسالة';
+        btn.classList.remove('opacity-70');
+        msg.classList.remove('hidden');
+        msg.className = 'mt-4 text-center text-lg font-semibold rounded-lg p-4 bg-error/10 text-error';
+        msg.textContent = 'حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.';
+      });
+  });
+</script>
 </body>
 </html>
