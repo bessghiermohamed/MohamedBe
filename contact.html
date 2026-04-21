@@ -383,6 +383,12 @@ Mohamed
 </div>
 </div>
 
+<!-- Success Overlay -->
+<div id="success-overlay" class="fixed inset-0 z-[100] bg-black/50 flex items-center justify-center hidden">
+<div id="success-check" class="bg-white rounded-full w-32 h-32 flex items-center justify-center shadow-2xl" style="transform: scale(0); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+<svg class="w-16 h-16 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+</div>
+</div>
 </footer>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
@@ -409,6 +415,14 @@ Mohamed
         msg.className = 'mt-4 text-center text-lg font-semibold rounded-lg p-4 bg-success/10 text-success';
         msg.textContent = 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.';
         document.getElementById('contact-form').reset();
+        var overlay = document.getElementById('success-overlay');
+        var check = document.getElementById('success-check');
+        overlay.classList.remove('hidden');
+        setTimeout(function() { check.style.transform = 'scale(1)'; }, 50);
+        setTimeout(function() {
+          check.style.transform = 'scale(0)';
+          setTimeout(function() { overlay.classList.add('hidden'); }, 400);
+        }, 2000);
       }, function(error) {
         btn.disabled = false;
         btn.textContent = 'إرسال الرسالة';
