@@ -36,7 +36,7 @@
 <style>
     html { scroll-behavior: smooth; }
 
-    /* Scroll reveal animations */
+    /* Scroll reveal */
     .reveal {
         opacity: 0;
         transform: translateY(30px);
@@ -47,46 +47,77 @@
         transform: translateY(0);
     }
 
-    /* Expandable card styles */
+    /* Activity card hover */
     .activity-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        cursor: pointer;
     }
     .activity-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        border-color: #2D5BA6;
     }
-    .activity-card .card-details {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.3s ease;
+    .activity-card .card-arrow {
+        transition: transform 0.3s ease, opacity 0.3s ease;
         opacity: 0;
     }
-    .activity-card.expanded .card-details {
-        max-height: 400px;
+    .activity-card:hover .card-arrow {
+        transform: translateX(-4px);
         opacity: 1;
     }
-    .activity-card .expand-icon {
+
+    /* Icon hover */
+    .icon-box {
         transition: transform 0.3s ease;
     }
-    .activity-card.expanded .expand-icon {
-        transform: rotate(180deg);
-    }
-    .activity-card .expand-btn {
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .activity-card.expanded .expand-btn {
-        background-color: #2D5BA6;
-        color: white;
+    .activity-card:hover .icon-box {
+        transform: scale(1.1) rotate(-3deg);
     }
 
-    /* Navbar glass effect */
+    /* Modal overlay */
+    .modal-overlay {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+    }
+    .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Modal content */
+    .modal-content {
+        transform: scale(0.9) translateY(30px);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.active .modal-content {
+        transform: scale(1) translateY(0);
+    }
+
+    /* Modal detail items animation */
+    .modal-overlay.active .detail-item {
+        animation: slideIn 0.4s ease forwards;
+        opacity: 0;
+    }
+    .modal-overlay.active .detail-item:nth-child(1) { animation-delay: 0.1s; }
+    .modal-overlay.active .detail-item:nth-child(2) { animation-delay: 0.15s; }
+    .modal-overlay.active .detail-item:nth-child(3) { animation-delay: 0.2s; }
+    .modal-overlay.active .detail-item:nth-child(4) { animation-delay: 0.25s; }
+    .modal-overlay.active .detail-item:nth-child(5) { animation-delay: 0.3s; }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Navbar glass */
     .nav-glass {
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         background: rgba(255, 255, 255, 0.92);
     }
 
-    /* Mobile menu animation */
+    /* Mobile menu */
     #mobile-menu {
         max-height: 0;
         overflow: hidden;
@@ -121,13 +152,15 @@
         transform: translateY(0);
     }
 
-    /* Icon hover animation */
-    .icon-box {
-        transition: transform 0.3s ease, background-color 0.3s ease;
+    /* Body no scroll when modal open */
+    body.modal-open {
+        overflow: hidden;
     }
-    .activity-card:hover .icon-box {
-        transform: scale(1.1);
-    }
+
+    /* Scrollbar for modal */
+    .modal-body::-webkit-scrollbar { width: 4px; }
+    .modal-body::-webkit-scrollbar-track { background: transparent; }
+    .modal-body::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
 </style>
 </head>
 <body class="font-sans bg-background text-textPrimary" style="overflow-x:hidden">
@@ -135,7 +168,6 @@
 <!-- Navigation -->
 <nav class="nav-glass sticky top-0 z-50 shadow-sm border-b border-border/50">
 <div class="max-w-[1200px] mx-auto px-6">
-<!-- Desktop Navigation -->
 <div class="hidden md:flex items-center justify-between h-16">
 <div class="flex items-center gap-6">
 <a class="text-sm font-semibold text-textSecondary hover:text-primary transition-colors px-1" href="index.html">الرئيسية</a>
@@ -154,7 +186,6 @@
 نادي أريس
 </a>
 </div>
-<!-- Mobile Header -->
 <div class="md:hidden flex items-center justify-between h-14">
 <a class="flex items-center gap-2 text-base font-bold text-primary" href="index.html">
 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
@@ -164,7 +195,6 @@
 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
 </button>
 </div>
-<!-- Mobile Menu -->
 <div id="mobile-menu" class="md:hidden bg-surface border-t border-border px-2 space-y-1">
 <a class="block py-2.5 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="index.html">الرئيسية</a>
 <a class="block py-2.5 px-3 rounded-lg text-base font-semibold text-textSecondary hover:text-primary hover:bg-primary/5 transition-colors" href="about.html">من نحن</a>
@@ -188,11 +218,9 @@
 <div class="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white -translate-x-1/4 translate-y-1/4"></div>
 </div>
 <div class="relative max-w-[1200px] mx-auto px-6 text-center">
-<h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-مجالات النشاط
-</h1>
+<h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">مجالات النشاط</h1>
 <p class="text-lg md:text-xl leading-relaxed max-w-[800px] mx-auto text-white/80">
-استكشف تنوع أنشطتنا عبر ستة مجالات رئيسية تهدف إلى إثراء التجربة الثقافية والفنية والاجتماعية لأعضائنا
+استكشف تنوع أنشطتنا عبر ستة مجالات رئيسية — اضغط على أي بطاقة لعرض التفاصيل
 </p>
 </div>
 </section>
@@ -201,240 +229,83 @@
 <section class="py-20 bg-surface">
 <div class="max-w-[1200px] mx-auto px-6">
 <div class="text-center mb-14 reveal">
-<h2 class="text-3xl md:text-[32px] font-bold text-textPrimary mb-4">
-ستة مجالات رائعة
-</h2>
+<h2 class="text-3xl md:text-[32px] font-bold text-textPrimary mb-4">ستة مجالات رائعة</h2>
 <div class="section-divider mx-auto mb-4"></div>
-<p class="text-textSecondary text-lg">اضغط على أي بطاقة لعرض التفاصيل</p>
+<p class="text-textSecondary text-lg">اضغط على أي بطاقة لعرض التفاصيل في نافذة منبثقة</p>
 </div>
+
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
 <!-- Card 1: المجال الثقافي -->
-<article class="reveal activity-card bg-surface border border-border rounded-2xl overflow-hidden cursor-pointer shadow-[0_2px_12px_rgba(0,0,0,0.06)]" onclick="this.classList.toggle('expanded')">
-<div class="p-7">
+<article class="reveal activity-card bg-surface border border-border rounded-2xl p-7 shadow-[0_2px_12px_rgba(0,0,0,0.06)]" onclick="openModal(0)">
 <div class="flex items-start justify-between mb-4">
 <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center icon-box">
-<svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
+<svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
 </div>
-<svg class="w-5 h-5 text-textSecondary expand-icon mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+<svg class="w-5 h-5 text-textSecondary card-arrow mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
 </div>
 <h3 class="text-xl font-bold mb-2 text-textPrimary">المجال الثقافي</h3>
 <p class="text-base text-textSecondary leading-relaxed">نعزز الوعي الثقافي والأدبي من خلال برامج متنوعة تربط التراث بالمعاصرة</p>
-</div>
-<div class="card-details border-t border-border bg-background/50">
-<div class="p-7 pt-5">
-<ul class="space-y-3">
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">الأمسيات الأدبية مع كتاب وشعراء محليين</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">مسابقات الشعر والنثر الإبداعي</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">ندوات نقاشية حول قضايا ثقافية معاصرة</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">معارض الكتب والإصدارات الجديدة</span>
-</li>
-</ul>
-</div>
-</div>
 </article>
 
 <!-- Card 2: المجال الفني -->
-<article class="reveal activity-card bg-surface border border-border rounded-2xl overflow-hidden cursor-pointer shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.05s" onclick="this.classList.toggle('expanded')">
-<div class="p-7">
+<article class="reveal activity-card bg-surface border border-border rounded-2xl p-7 shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.05s" onclick="openModal(1)">
 <div class="flex items-start justify-between mb-4">
 <div class="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center icon-box">
-<svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
+<svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
 </div>
-<svg class="w-5 h-5 text-textSecondary expand-icon mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+<svg class="w-5 h-5 text-textSecondary card-arrow mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
 </div>
 <h3 class="text-xl font-bold mb-2 text-textPrimary">المجال الفني</h3>
 <p class="text-base text-textSecondary leading-relaxed">نطلق العنان للإبداع الفني والأداء المسرحي لتنمية المواهب الشابة</p>
-</div>
-<div class="card-details border-t border-border bg-background/50">
-<div class="p-7 pt-5">
-<ul class="space-y-3">
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">العروض المسرحية والدرامية</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">ورش الفنون البصرية والتشكيلية</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">مسابقات التمثيل والأداء المسرحي</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">جلسات النقد الفني والتقييم</span>
-</li>
-</ul>
-</div>
-</div>
 </article>
 
 <!-- Card 3: المجال الإعلامي -->
-<article class="reveal activity-card bg-surface border border-border rounded-2xl overflow-hidden cursor-pointer shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.1s" onclick="this.classList.toggle('expanded')">
-<div class="p-7">
+<article class="reveal activity-card bg-surface border border-border rounded-2xl p-7 shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.1s" onclick="openModal(2)">
 <div class="flex items-start justify-between mb-4">
 <div class="w-14 h-14 bg-warning/10 rounded-xl flex items-center justify-center icon-box">
-<svg class="w-7 h-7 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
+<svg class="w-7 h-7 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
 </div>
-<svg class="w-5 h-5 text-textSecondary expand-icon mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+<svg class="w-5 h-5 text-textSecondary card-arrow mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
 </div>
 <h3 class="text-xl font-bold mb-2 text-textPrimary">المجال الإعلامي</h3>
 <p class="text-base text-textSecondary leading-relaxed">نبني مهارات الإعلام الحديث والتواصل الفعال لمواكبة العصر الرقمي</p>
-</div>
-<div class="card-details border-t border-border bg-background/50">
-<div class="p-7 pt-5">
-<ul class="space-y-3">
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-warning rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">دورات التعليق الصوتي والدبلجة</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-warning rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">ورش الصحافة والكتابة الإعلامية</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-warning rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">تدريب على إدارة وسائل التواصل الاجتماعي</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-warning rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">إنتاج المحتوى الرقمي والبودكاست</span>
-</li>
-</ul>
-</div>
-</div>
 </article>
 
 <!-- Card 4: المجال الاجتماعي -->
-<article class="reveal activity-card bg-surface border border-border rounded-2xl overflow-hidden cursor-pointer shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.15s" onclick="this.classList.toggle('expanded')">
-<div class="p-7">
+<article class="reveal activity-card bg-surface border border-border rounded-2xl p-7 shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.15s" onclick="openModal(3)">
 <div class="flex items-start justify-between mb-4">
 <div class="w-14 h-14 bg-success/10 rounded-xl flex items-center justify-center icon-box">
-<svg class="w-7 h-7 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
+<svg class="w-7 h-7 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
 </div>
-<svg class="w-5 h-5 text-textSecondary expand-icon mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+<svg class="w-5 h-5 text-textSecondary card-arrow mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
 </div>
 <h3 class="text-xl font-bold mb-2 text-textPrimary">المجال الاجتماعي</h3>
 <p class="text-base text-textSecondary leading-relaxed">نعمق الروابط المجتمعية ونساهم في بناء مجتمع واعٍ ومتماسك</p>
-</div>
-<div class="card-details border-t border-border bg-background/50">
-<div class="p-7 pt-5">
-<ul class="space-y-3">
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">حملات التوعية المجتمعية</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">مبادرات خدمة المجتمع والعمل التطوعي</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">برامج التواصل بين الأجيال</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">فعاليات المناسبات الوطنية والاجتماعية</span>
-</li>
-</ul>
-</div>
-</div>
 </article>
 
 <!-- Card 5: المجال اللغوي -->
-<article class="reveal activity-card bg-surface border border-border rounded-2xl overflow-hidden cursor-pointer shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.2s" onclick="this.classList.toggle('expanded')">
-<div class="p-7">
+<article class="reveal activity-card bg-surface border border-border rounded-2xl p-7 shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.2s" onclick="openModal(4)">
 <div class="flex items-start justify-between mb-4">
 <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center icon-box">
-<svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
+<svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
 </div>
-<svg class="w-5 h-5 text-textSecondary expand-icon mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+<svg class="w-5 h-5 text-textSecondary card-arrow mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
 </div>
 <h3 class="text-xl font-bold mb-2 text-textPrimary">المجال اللغوي</h3>
 <p class="text-base text-textSecondary leading-relaxed">نعزز إتقان اللغة العربية وفنونها لحماية الهوية وتطوير المهارات اللغوية</p>
-</div>
-<div class="card-details border-t border-border bg-background/50">
-<div class="p-7 pt-5">
-<ul class="space-y-3">
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">جلسات القراءة الجماعية والنقاشية</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">دورات البلاغة وفنون اللغة العربية</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">مسابقات الإملاء والخط العربي</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">ورش الكتابة الإبداعية والتحرير</span>
-</li>
-</ul>
-</div>
-</div>
 </article>
 
 <!-- Card 6: المجال التدريبي -->
-<article class="reveal activity-card bg-surface border border-border rounded-2xl overflow-hidden cursor-pointer shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.25s" onclick="this.classList.toggle('expanded')">
-<div class="p-7">
+<article class="reveal activity-card bg-surface border border-border rounded-2xl p-7 shadow-[0_2px_12px_rgba(0,0,0,0.06)]" style="transition-delay:0.25s" onclick="openModal(5)">
 <div class="flex items-start justify-between mb-4">
 <div class="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center icon-box">
-<svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
+<svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
 </div>
-<svg class="w-5 h-5 text-textSecondary expand-icon mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+<svg class="w-5 h-5 text-textSecondary card-arrow mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
 </div>
 <h3 class="text-xl font-bold mb-2 text-textPrimary">المجال التدريبي</h3>
 <p class="text-base text-textSecondary leading-relaxed">نستثمر في تطوير المهارات الشخصية والقيادية لإعداد قادة المستقبل</p>
-</div>
-<div class="card-details border-t border-border bg-background/50">
-<div class="p-7 pt-5">
-<ul class="space-y-3">
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">ورش التنمية الشخصية وبناء الثقة</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">دورات مهارات القيادة والإدارة</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">تدريب على فن الإلقاء والخطابة</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></span>
-<span class="text-base text-textPrimary">برامج التفكير النقدي والإبداعي</span>
-</li>
-</ul>
-</div>
-</div>
 </article>
 
 </div>
@@ -444,9 +315,7 @@
 <!-- Call to Action -->
 <section class="py-20 bg-background">
 <div class="max-w-[1200px] mx-auto px-6 text-center reveal">
-<h2 class="text-3xl md:text-4xl font-bold mb-6 text-textPrimary">
-انضم إلى رحلة الإبداع والتطور
-</h2>
+<h2 class="text-3xl md:text-4xl font-bold mb-6 text-textPrimary">انضم إلى رحلة الإبداع والتطور</h2>
 <p class="text-lg text-textSecondary leading-relaxed mb-10 max-w-[700px] mx-auto">
 اختر المجال الذي يناسب اهتماماتك وابدأ رحلتك في تطوير مهاراتك وبناء شبكة علاقات قيّمة مع أفراد يشاركونك الشغف
 </p>
@@ -457,6 +326,56 @@
 </div>
 </section>
 </main>
+
+<!-- ===== MODAL ===== -->
+<div id="modal-overlay" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal()"></div>
+<!-- Modal Box -->
+<div class="modal-content relative bg-surface rounded-2xl shadow-2xl w-full max-w-[560px] max-h-[85vh] overflow-hidden">
+<!-- Modal Header (colored bar) -->
+<div id="modal-header" class="h-2 bg-primary"></div>
+<!-- Modal Close Button -->
+<button onclick="closeModal()" class="absolute top-5 left-5 w-8 h-8 rounded-full bg-background hover:bg-border flex items-center justify-center transition-colors z-10" aria-label="إغلاق">
+<svg class="w-4 h-4 text-textSecondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+<!-- Modal Body -->
+<div class="modal-body overflow-y-auto p-8 pt-6">
+<div class="flex items-center gap-4 mb-6">
+<div id="modal-icon" class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0"></div>
+<div>
+<h3 id="modal-title" class="text-2xl font-bold text-textPrimary"></h3>
+<p id="modal-subtitle" class="text-sm text-textSecondary mt-1"></p>
+</div>
+</div>
+<!-- Description -->
+<p id="modal-desc" class="text-base text-textSecondary leading-relaxed mb-6"></p>
+<!-- Divider -->
+<div class="border-t border-border my-5"></div>
+<!-- Details Title -->
+<h4 class="text-lg font-bold text-textPrimary mb-4">الأنشطة والبرامج</h4>
+<!-- Detail Items -->
+<ul id="modal-details" class="space-y-3"></ul>
+<!-- Divider -->
+<div class="border-t border-border my-5"></div>
+<!-- Stats -->
+<div class="grid grid-cols-3 gap-3 text-center">
+<div class="bg-background rounded-xl p-3">
+<div id="modal-stat1-num" class="text-xl font-bold text-primary">0</div>
+<div id="modal-stat1-label" class="text-xs text-textSecondary mt-1">فعالية</div>
+</div>
+<div class="bg-background rounded-xl p-3">
+<div id="modal-stat2-num" class="text-xl font-bold text-primary">0</div>
+<div id="modal-stat2-label" class="text-xs text-textSecondary mt-1">عضو</div>
+</div>
+<div class="bg-background rounded-xl p-3">
+<div id="modal-stat3-num" class="text-xl font-bold text-primary">0</div>
+<div id="modal-stat3-label" class="text-xs text-textSecondary mt-1">ورشة</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 <!-- Footer -->
 <footer class="bg-textPrimary text-white py-16">
@@ -480,36 +399,18 @@
 <h4 class="text-base font-semibold mb-4 text-white/80">تواصل معنا</h4>
 <p class="text-white/50 text-sm mb-3">clubaris966@gmail.com</p>
 <div class="flex gap-3">
-<a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-</a>
-<a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-</a>
-<a href="mailto:clubaris966@gmail.com" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-</a>
+<a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+<a href="#" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+<a href="mailto:clubaris966@gmail.com" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
 </div>
 </div>
 <div>
 <h4 class="text-base font-semibold mb-4 text-white/80">تم إنشاء الموقع بواسطة</h4>
 <ul class="space-y-2">
-<li class="inline-flex items-center gap-2 bg-white/10 text-white/80 px-3 py-1 rounded-full text-xs font-semibold">
-<svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-Group-07
-</li>
-<li class="inline-flex items-center gap-2 bg-white/10 text-white/80 px-3 py-1 rounded-full text-xs font-semibold">
-<svg class="w-3.5 h-3.5 text-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-Lina
-</li>
-<li class="inline-flex items-center gap-2 bg-white/10 text-white/80 px-3 py-1 rounded-full text-xs font-semibold">
-<svg class="w-3.5 h-3.5 text-success" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-Nour
-</li>
-<li class="inline-flex items-center gap-2 bg-white/10 text-white/80 px-3 py-1 rounded-full text-xs font-semibold">
-<svg class="w-3.5 h-3.5 text-warning" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-Mohamed
-</li>
+<li class="inline-flex items-center gap-2 bg-white/10 text-white/80 px-3 py-1 rounded-full text-xs font-semibold"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Group-07</li>
+<li class="inline-flex items-center gap-2 bg-white/10 text-white/80 px-3 py-1 rounded-full text-xs font-semibold"><svg class="w-3.5 h-3.5 text-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Lina</li>
+<li class="inline-flex items-center gap-2 bg-white/10 text-white/80 px-3 py-1 rounded-full text-xs font-semibold"><svg class="w-3.5 h-3.5 text-success" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Nour</li>
+<li class="inline-flex items-center gap-2 bg-white/10 text-white/80 px-3 py-1 rounded-full text-xs font-semibold"><svg class="w-3.5 h-3.5 text-warning" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Mohamed</li>
 </ul>
 </div>
 </div>
@@ -525,6 +426,143 @@ Mohamed
 </button>
 
 <script>
+// Activity data
+const activities = [
+    {
+        title: 'المجال الثقافي',
+        subtitle: 'الثقافة والأدب والإبداع',
+        desc: 'يعنى هذا المجال بتعزيز الوعي الثقافي والأدبي لدى الطلاب من خلال برامج متنوعة تربط التراث العربي الأصيل بالمعاصرة، ويهدف إلى بناء شخصية الطالب المثقف القادر على المساهمة في الحوار الثقافي والفكري.',
+        color: '#2D5BA6',
+        icon: '<svg class="w-7 h-7" fill="none" stroke="#2D5BA6" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>',
+        details: [
+            'الأمسيات الأدبية مع كتاب وشعراء محليين',
+            'مسابقات الشعر والنثر الإبداعي',
+            'ندوات نقاشية حول قضايا ثقافية معاصرة',
+            'معارض الكتب والإصدارات الجديدة'
+        ],
+        stats: { n1: '8', l1: 'فعاليات', n2: '35', l2: 'عضو', n3: '5', l3: 'ورشات' }
+    },
+    {
+        title: 'المجال الفني',
+        subtitle: 'الفنون والأداء الإبداعي',
+        desc: 'يوفر هذا المجال مساحة حرة للتعبير الفني والإبداع، حيث نطلق العنان للمواهب الشابة في مجالات المسرح والفنون البصرية والتشكيلية، مع تقديم جلسات نقد وتقييم متخصصة.',
+        color: '#E86252',
+        icon: '<svg class="w-7 h-7" fill="none" stroke="#E86252" viewBox="0 0 24 24"><path d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>',
+        details: [
+            'العروض المسرحية والدرامية',
+            'ورش الفنون البصرية والتشكيلية',
+            'مسابقات التمثيل والأداء المسرحي',
+            'جلسات النقد الفني والتقييم'
+        ],
+        stats: { n1: '6', l1: 'عروض', n2: '28', l2: 'عضو', n3: '4', l3: 'ورشات' }
+    },
+    {
+        title: 'المجال الإعلامي',
+        subtitle: 'الإعلام والتواصل الرقمي',
+        desc: 'يعد هذا المجال بوابة الطلاب نحو عالم الإعلام الحديث، حيث يتعلمون أساسيات الصحافة والتعليق الصوتي وإدارة المحتوى الرقمي والبودكاست، ليصبحوا قادرين على إنتاج محتوى احترافي.',
+        color: '#F5A623',
+        icon: '<svg class="w-7 h-7" fill="none" stroke="#F5A623" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>',
+        details: [
+            'دورات التعليق الصوتي والدبلجة',
+            'ورش الصحافة والكتابة الإعلامية',
+            'تدريب على إدارة وسائل التواصل الاجتماعي',
+            'إنتاج المحتوى الرقمي والبودكاست'
+        ],
+        stats: { n1: '7', l1: 'برامج', n2: '22', l2: 'عضو', n3: '6', l3: 'ورشات' }
+    },
+    {
+        title: 'المجال الاجتماعي',
+        subtitle: 'المجتمع والعمل التطوعي',
+        desc: 'يركز هذا المجال على تعميق الروابط المجتمعية وتنمية حس المسؤولية الاجتماعية لدى الطلاب، من خلال حملات توعية ومبادرات تطوعية وبرامج تواصل بين الأجيال.',
+        color: '#52C27F',
+        icon: '<svg class="w-7 h-7" fill="none" stroke="#52C27F" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>',
+        details: [
+            'حملات التوعية المجتمعية',
+            'مبادرات خدمة المجتمع والعمل التطوعي',
+            'برامج التواصل بين الأجيال',
+            'فعاليات المناسبات الوطنية والاجتماعية'
+        ],
+        stats: { n1: '10', l1: 'حملات', n2: '40', l2: 'عضو', n3: '8', l3: 'مبادرات' }
+    },
+    {
+        title: 'المجال اللغوي',
+        subtitle: 'اللغة العربية وفنونها',
+        desc: 'يعنى هذا المجال بتعزيز إتقان اللغة العربية وفنونها المتعددة من بلاغة ونقد أدبي، مع الحفاظ على الهوية اللغوية وتطوير مهارات الكتابة الإبداعية والخط العربي.',
+        color: '#2D5BA6',
+        icon: '<svg class="w-7 h-7" fill="none" stroke="#2D5BA6" viewBox="0 0 24 24"><path d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>',
+        details: [
+            'جلسات القراءة الجماعية والنقاشية',
+            'دورات البلاغة وفنون اللغة العربية',
+            'مسابقات الإملاء والخط العربي',
+            'ورش الكتابة الإبداعية والتحرير'
+        ],
+        stats: { n1: '5', l1: 'مسابقات', n2: '30', l2: 'عضو', n3: '4', l3: 'ورشات' }
+    },
+    {
+        title: 'المجال التدريبي',
+        subtitle: 'تطوير المهارات والقيادة',
+        desc: 'يستثمر هذا المجال في تطوير المهارات الشخصية والقيادية للطلاب، من خلال ورش عمل ودورات تكوينية في التنمية الشخصية وفن الإلقاء والتفكير النقدي، لإعداد قادة المستقبل.',
+        color: '#E86252',
+        icon: '<svg class="w-7 h-7" fill="none" stroke="#E86252" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>',
+        details: [
+            'ورش التنمية الشخصية وبناء الثقة',
+            'دورات مهارات القيادة والإدارة',
+            'تدريب على فن الإلقاء والخطابة',
+            'برامج التفكير النقدي والإبداعي'
+        ],
+        stats: { n1: '9', l1: 'ورشات', n2: '45', l2: 'عضو', n3: '7', l3: 'دورات' }
+    }
+];
+
+function openModal(index) {
+    const data = activities[index];
+    const overlay = document.getElementById('modal-overlay');
+
+    // Set color bar
+    document.getElementById('modal-header').style.background = data.color;
+
+    // Set icon
+    const iconEl = document.getElementById('modal-icon');
+    iconEl.style.backgroundColor = data.color + '15';
+    iconEl.innerHTML = data.icon;
+
+    // Set text
+    document.getElementById('modal-title').textContent = data.title;
+    document.getElementById('modal-subtitle').textContent = data.subtitle;
+    document.getElementById('modal-desc').textContent = data.desc;
+
+    // Set details
+    const detailsEl = document.getElementById('modal-details');
+    detailsEl.innerHTML = data.details.map(item =>
+        `<li class="detail-item flex items-start gap-3 p-3 rounded-xl bg-background">
+            <span class="w-2 h-2 rounded-full mt-2 flex-shrink-0" style="background:${data.color}"></span>
+            <span class="text-base text-textPrimary">${item}</span>
+        </li>`
+    ).join('');
+
+    // Set stats
+    document.getElementById('modal-stat1-num').textContent = data.stats.n1;
+    document.getElementById('modal-stat1-label').textContent = data.stats.l1;
+    document.getElementById('modal-stat2-num').textContent = data.stats.n2;
+    document.getElementById('modal-stat2-label').textContent = data.stats.l2;
+    document.getElementById('modal-stat3-num').textContent = data.stats.n3;
+    document.getElementById('modal-stat3-label').textContent = data.stats.l3;
+
+    // Show modal
+    overlay.classList.add('active');
+    document.body.classList.add('modal-open');
+}
+
+function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('active');
+    document.body.classList.remove('modal-open');
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
+
 // Scroll reveal
 const revealElements = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
