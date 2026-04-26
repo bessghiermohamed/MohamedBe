@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://bessghiermohamed.github.io/MohamedBe/sitemap.xml
