@@ -50,7 +50,8 @@
     details summary .chevron { transition:transform .3s ease; }
     details[open] summary .chevron { transform:rotate(180deg); }
     details[open] summary .faq-title { color:#2D5BA6; }
-    #success-overlay { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.4); }
+    #success-overlay { position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.4); }
+    #success-overlay.show { display:flex; }
     #success-check { width:120px; height:120px; transform:scale(0); transition:transform .4s cubic-bezier(.175,.885,.32,1.275); }
     .check-circle { fill:none; stroke:#52C27F; stroke-width:4; stroke-dasharray:340; stroke-dashoffset:340; animation:drawCircle .6s ease forwards; }
     .check-mark-line { fill:none; stroke:#52C27F; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:80; stroke-dashoffset:80; animation:drawCheck .4s ease forwards .4s; }
@@ -454,10 +455,11 @@
         svgEl.parentNode.replaceChild(clone, svgEl);
         clone.style.transform = 'scale(0)';
         overlay.classList.remove('hidden');
+        overlay.classList.add('show');
         setTimeout(function() { clone.style.transform = 'scale(1)'; }, 50);
         setTimeout(function() {
           clone.style.transform = 'scale(0)';
-          setTimeout(function() { overlay.classList.add('hidden'); clone.style.transform = 'scale(0)'; }, 400);
+          setTimeout(function() { overlay.classList.remove('show'); overlay.classList.add('hidden'); }, 400);
         }, 2000);
       }, function(error) {
         btn.disabled = false;
