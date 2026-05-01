@@ -458,5 +458,10 @@
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 left-6 z-50 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:bg-[#1e3d70] transition-colors" aria-label="العودة للأعلى">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
 </button>
+<script>
+const btt=document.getElementById('back-to-top');
+if(btt){window.addEventListener('scroll',()=>{btt.classList.toggle('show',window.scrollY>400);});}
+document.querySelectorAll('#mobile-menu a').forEach(l=>{l.addEventListener('click',()=>{document.getElementById('mobile-menu').classList.remove('open');});});
+</script>
 </body>
 </html>
