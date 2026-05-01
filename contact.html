@@ -50,6 +50,12 @@
     details summary .chevron { transition:transform .3s ease; }
     details[open] summary .chevron { transform:rotate(180deg); }
     details[open] summary .faq-title { color:#2D5BA6; }
+    #success-overlay { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.4); }
+    #success-check { width:120px; height:120px; transform:scale(0); transition:transform .4s cubic-bezier(.175,.885,.32,1.275); }
+    .check-circle { fill:none; stroke:#52C27F; stroke-width:4; stroke-dasharray:340; stroke-dashoffset:340; animation:drawCircle .6s ease forwards; }
+    .check-mark-line { fill:none; stroke:#52C27F; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:80; stroke-dashoffset:80; animation:drawCheck .4s ease forwards .4s; }
+    @keyframes drawCircle { to { stroke-dashoffset:0; } }
+    @keyframes drawCheck { to { stroke-dashoffset:0; } }
 </style>
 
 </head>
@@ -411,6 +417,12 @@
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 left-6 z-50 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:bg-[#1e3d70] transition-colors" aria-label="العودة للأعلى">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
 </button>
+<div id="success-overlay" class="hidden">
+  <svg id="success-check" viewBox="0 0 120 120">
+    <circle class="check-circle" cx="60" cy="60" r="54"/>
+    <polyline class="check-mark-line" points="35,62 52,78 85,42"/>
+  </svg>
+</div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
   (function() {
@@ -437,12 +449,15 @@
         msg.textContent = 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.';
         document.getElementById('contact-form').reset();
         var overlay = document.getElementById('success-overlay');
-        var check = document.getElementById('success-check');
+        var svgEl = document.getElementById('success-check');
+        var clone = svgEl.cloneNode(true);
+        svgEl.parentNode.replaceChild(clone, svgEl);
+        clone.style.transform = 'scale(0)';
         overlay.classList.remove('hidden');
-        setTimeout(function() { check.style.transform = 'scale(1)'; }, 50);
+        setTimeout(function() { clone.style.transform = 'scale(1)'; }, 50);
         setTimeout(function() {
-          check.style.transform = 'scale(0)';
-          setTimeout(function() { overlay.classList.add('hidden'); }, 400);
+          clone.style.transform = 'scale(0)';
+          setTimeout(function() { overlay.classList.add('hidden'); clone.style.transform = 'scale(0)'; }, 400);
         }, 2000);
       }, function(error) {
         btn.disabled = false;
